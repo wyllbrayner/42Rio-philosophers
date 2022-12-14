@@ -22,4 +22,15 @@
 # define FALSE	0
 # define TRUE	1
 
+typedef struct      philo
+{
+    int             ret;
+    long            nbr_philo;
+    long            nbr_fork;
+    suseconds_t     t_to_die;
+    suseconds_t     t_to_eat;
+    suseconds_t     t_to_sleep;
+    long            t_must_eat;
+}                   t_philo;
+
 #endif

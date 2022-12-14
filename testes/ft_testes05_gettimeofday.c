@@ -30,10 +30,10 @@ int main(void)
 {
     struct timeval start, end;
     gettimeofday(&start, NULL);
-    usleep(1000);
+//    usleep(1000);
     gettimeofday(&end, NULL);
-    printf("end         : %ld\n", end.tv_usec);
-    printf("start       : %ld\n", start.tv_usec);
-    printf("elapsed time: %ld\n", end.tv_usec - start.tv_usec);
+    printf("end         : %d\n", end.tv_usec);
+    printf("start       : %d\n", start.tv_usec);
+    printf("elapsed time: %d\n", end.tv_usec - start.tv_usec);
     return (0);
 }
