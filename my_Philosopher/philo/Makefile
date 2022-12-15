@@ -1,4 +1,4 @@
-SRCS		= $(wildcard src/*.c)
+SRCS		= $(wildcard src/ft_*.c)
 OBJS		= $(SRCS:.c=.o)
 NAME		= philo
 RM			= rm -f

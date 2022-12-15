@@ -72,14 +72,77 @@ pthread_mutex_unlock
 
 OBS: o contador para a morte do philosopher reinicia a cada vez que ele começa a comer.
 
-*/
-
-/*
 Passos
-0 - montar o arquivo Makefile.
-1 - validar as entradas (pode usar o processo de validacao da push_swap);
+0 - (OK) Montar o arquivo Makefile.
+1 - (OK) Validar as entradas (pode usar o processo de validacao da push_swap);
+    -> se alguma das entradas for inválida:
+        => retornar uma mensagem de erro; e
+        => encerrar o programa.
+    -> se passar pela validação, seguir com o programa.
+2 - (XX) Iniciar as variáveis necessárias em uma estrutura;
+    -> se a inicialização falhar:
+        => retornar mensagem de error; e
+        => encerrar o programa.
+    -> se passar pela inicialização, seguir com o programa. 
+3 - (XX) Inicializar a quantidade de philosophers (threades) de acordo com o input recebido.
+    -> se a inicialização de algum dos philosophos falhar:
+        => encerrar as threads já inicializadas;
+        => liberar a memória (caso tenha sido alocada);
+        => escrever mensagem de error; e
+        => encerrar o programa.
+    -> se passar pela inicialização, seguir com o programa.
+4 - (XX) Inicializar uma thread adicional para monitorar as condições de parada do programa (alguma \
+    thread morrer (ou todos os philosophos conseguirem comer, pelo menos, a quatidade estipulada [se definido]));
+    -> se alguma condição de parada for alcançada:
+        => escrever na tela que o philosopher morreu;
+        => encerrar as threads já inicializada;
+        => liberar a memória já alocada (se aplicado); e
+        => encerrar o programa.
+    -> enquanto a condição de parada não for alcançada, seguir com o programa.
+5 - (XX) Cada philosopho deve executar uma mesma rotina.
+    -> Esta rotina deve ficar em loop infinito até que a condição de parada seja alcançada.
+    --> a rotina deve chamar as seguintes atividades:
+        ---> comer;
+        ----> Essa atividade deve chamar uma função comer que fará as seguintes atividades:
+        -----> capturar o mutex para o garfo direito;
+        -----> imprimir "timestamp_in_ms X has taken a fork";
+        -----> capturar o mutex para o garfo esquerdo;
+        -----> imprimir "timestamp_in_ms X has taken a fork";
+        -----> capturar o mutex para impressão;
+        -----> calcular o timestamp_in_ms para impressão final.
+        -----> imprimir "timestamp_in_ms X is eating";
+        -----> devolver o mutex para impressão;
+        -----> devolver o mutex para o garfo direito;
+        -----> devolver o mutex para o garfo esquerdo;
+        ---> dormir;
+        ---> Essa atividade deve chamar uma função dormir que fará as seguintes atividades:
+        ----> capturar o mutex para impressão;
+        ----> calcular o timestamp_in_ms para impressão final.
+        ----> imprimir "timestamp_in_ms X is sleeping";
+        ----> devolver o mutex para impressão;
+        ---> pensar;
+        ---> Essa atividade deve chamar uma função pensar que fará as seguintes atividades:
+        ----> capturar o mutex para impressão;
+        ----> calcular o timestamp_in_ms para impressão final.
+        ----> imprimir "timestamp_in_ms X is thinking";
+        ----> devolver o mutex para impressão;
+6 - (XX) A thread monitor deve executar a seguinte rotina.
+    -> essa rotina deve ser executada até que a condição de parada seja alcançada.
+    --> 
 
-2 - montar o processo de validação do programa (quando ele deve encerrar);
+Conversão entre:
+1 segundo = 1.000 milissegundos        (ou 1/1000 segundo = 1 milissegundo).
+1 microssegundo = 1/1000 milissegundos (ou 1000 microssegundos = 1 milissegundo).
+segundo > milissegundo > microssegundo
 
+o usleep recebe microssegundos, mas trabalhamos com milissegundos. Logo, \
+precisaremos multiplicar os milissegundos por 1000 para enviar a quantidade certa de microssegundos \
+ao usleep.
+
+o gettimeofday devolve a quantidade de segundos e de microssegundos decorridos deste meados de 1970. A devolutiva \
+desta função ocorre mediante uma struct contendo dois campos. Um campo contendo a quantidade de segundos decorridos \
+desde o início da contagem até a sua chamada pelo programa e o segundo campo contendo a quantidade de microssegundos \
+decorridos.
+Neste projeto precisamos converter ambos os campos para milessegundos ((segundos + 1000) + (microssegundos / 1000)).
 
 */
