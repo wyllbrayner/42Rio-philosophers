@@ -80,7 +80,8 @@ Passos
         => encerrar o programa.
     -> se passar pela validação, seguir com o programa.
 2 - (XX) Iniciar as variáveis necessárias em uma estrutura;
-    -> se a inicialização falhar:
+    -> se a inicialização falhar (ainda estou inicializando apenas com as entradas dos usuários\
+    ainda não há error a ser validado):
         => retornar mensagem de error; e
         => encerrar o programa.
     -> se passar pela inicialização, seguir com o programa. 

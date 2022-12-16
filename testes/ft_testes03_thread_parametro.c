@@ -63,8 +63,7 @@ int main(void)
     }
     // essa função "aguarda" o término da thread associada à variável t1 e impede a conclusão do restante do código da função main. Caso a função ft_routine devolva algum valor, este pode ser capturado pelo ponteiro adicional à função. Como nossa função nada retorna, colocamos NULL neste campo.
     // caso a função pthread_join não consiga aguardar o retorno da thread especificada, será retornado um int diferente de zero, que pode ser validado.
-
-//    pthread_mutex_destroy(&mutex); //encerra o mutex, encerra a parte crítica do código para as threads
+    // pthread_mutex_destroy(&mutex); //encerra o mutex, encerra a parte crítica do código para as threads
 
     return (0);
 }

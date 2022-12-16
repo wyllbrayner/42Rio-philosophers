@@ -14,7 +14,7 @@
 
 #include "../header/ft_philosopher.h"
 
-void ft_valid_input_amount(int argc, t_philo *t_ph)
+void ft_valid_input_amount(int argc, t_setup *t_ph)
 {
     if (argc < 5 || argc > 6)
         t_ph->ret = -1;
@@ -40,7 +40,7 @@ int	ft_valid_character(char *str)
 	return (0);
 }
 
-t_philo	*ft_valid_input_number(char **argv, t_philo *t_ph)
+t_setup	*ft_valid_input_number(char **argv, t_setup *t_ph)
 {
 	int		i;
 	long	nbr;
@@ -64,7 +64,7 @@ t_philo	*ft_valid_input_number(char **argv, t_philo *t_ph)
 	return (t_ph);
 }
 
-t_philo	*ft_valid_input_character(char **argv, t_philo *t_ph)
+t_setup	*ft_valid_input_character(char **argv, t_setup *t_ph)
 {
 	int		i;
 
@@ -81,7 +81,7 @@ t_philo	*ft_valid_input_character(char **argv, t_philo *t_ph)
 	return (t_ph);
 }
 
-t_philo *ft_check_input(int argc, char **argv, t_philo *t_ph)
+t_setup *ft_check_input(int argc, char **argv, t_setup *t_ph)
 {
     ft_valid_input_amount(argc, t_ph);
     if (t_ph->ret < 0)
