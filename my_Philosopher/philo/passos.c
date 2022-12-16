@@ -126,9 +126,14 @@ Passos
         ----> calcular o timestamp_in_ms para impressão final.
         ----> imprimir "timestamp_in_ms X is thinking";
         ----> devolver o mutex para impressão;
-6 - (XX) A thread monitor deve executar a seguinte rotina.
-    -> essa rotina deve ser executada até que a condição de parada seja alcançada.
-    --> 
+6 - (XX) A thread monitor deve executar uma rotina que verifica se todos os philosophos estão vivos e \
+    se todos já comeram a quantidade determinada (se aplicado).
+    -> essa rotina devem conter um loop infinito validando as condições de parada.
+    --> condições de parada:
+    ---> Algum philósopho morrer; e 
+    ---> Todos os philosophos commerar a quantidade estipulada (se aplicado).
+    -> Uma vez fora do loop infinito, este monitor deve chamar a função que encerra as demais threads \
+    e encerrar o programa.
 
 Conversão entre:
 1 segundo = 1.000 milissegundos        (ou 1/1000 segundo = 1 milissegundo).

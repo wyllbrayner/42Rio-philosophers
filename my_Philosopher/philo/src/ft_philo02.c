@@ -16,7 +16,6 @@
 
 void    ft_init_struct(char **argv, t_philo *t_ph)
 {
-
     t_ph->nbr_philo = ft_atol(argv[1]);
     t_ph->nbr_fork = t_ph->nbr_philo;
     t_ph->t_to_die = ft_atol(argv[2]);
