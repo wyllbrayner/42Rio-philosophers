@@ -12,52 +12,20 @@
 
 #include "../header/ft_philosopher.h"
 
-int	ft_isspace(int c)
+int main(int argc, char **argv)
 {
-	unsigned char	chr;
+    ft_philosophers(argc, argv);
+/*
+    t_setup t_main;
 
-	chr = (unsigned char)c;
-	if ((chr >= 9 && chr <= 13) || (chr == 32))
-		return (TRUE);
-	return (FALSE);
-}
-
-int	ft_isdigit(int c)
-{
-	if ((c >= '0') && (c <= '9'))
-		return (1);
-	return (0);
-}
-
-long	ft_atol(char *str)
-{
-	int		i;
-	int		signal;
-	long	nbr;
-
-	i = 0;
-	signal = 1;
-	while (ft_isspace(str[i]) == 1)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			signal = -1;
-		i++;
-	}
-	nbr = 0;
-	while (ft_isdigit(str[i]))
-	{
-		nbr = (10 * nbr) + (str[i] - '0');
-		i++;
-	}
-	return (signal * nbr);
-}
-
-long	get_time(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+    t_main = ft_philosophers(argc, argv);
+    printf("A main retornou da philosopher\n");
+    printf("retornou          : %d\n",t_main.ret);
+    printf("qtd of philo      : %ld\n",t_main.nbr_philo);
+    printf("qtd of t_to_die   : %ld\n",t_main.t_to_die);
+    printf("qtd of t_to_eat   : %ld\n",t_main.t_to_eat);
+    printf("qtd of t_to_sleep : %ld\n",t_main.t_to_sleep);
+    printf("qtd of must_eat   : %ld\n",t_main.must_eat);
+*/
+    return (0);
 }

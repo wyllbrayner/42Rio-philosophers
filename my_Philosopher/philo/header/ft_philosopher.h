@@ -16,47 +16,59 @@
 # include <stdio.h>   // printf
 # include <stdlib.h>  // malloc e free
 # include <unistd.h>  // sleep
-
+# include <string.h>  // memset
 # include <pthread.h> // thread
 # include <sys/time.h>// gettimeofday
 
-# define FALSE	0
-# define TRUE	1
+# define FALSE	0     //ainda não usado
+# define TRUE	1     //ainda não usado
+
+# define EAT	1
+# define SLEEP	2
+# define THINK	3
 
 typedef struct      thinker
 {
-    int             philo_n;
-    int             is_live;
-    suseconds_t     last_eat;
+    long            philo_n;
     suseconds_t     t_to_die;
     suseconds_t     t_to_eat;
     suseconds_t     t_to_sleep;
     long            must_eat;
+    long            just_eat;
+    suseconds_t     t_last_eat;
+    int             is_live;
+    int             actual_action;
+    pthread_mutex_t mtx_r_fork;
+    pthread_mutex_t mtx_l_fork;
+    pthread_mutex_t mtx_print;
 }                   t_thinker;
 
 typedef struct      philo
 {
     int             ret;
     long            nbr_philo;
-    long            nbr_fork;
     suseconds_t     t_to_die;
     suseconds_t     t_to_eat;
     suseconds_t     t_to_sleep;
+    suseconds_t     t_start;
     long            must_eat;
+    int             is_running;
+    t_thinker       *philo;
+    pthread_mutex_t *fork;
+    pthread_t       *thread;
+    pthread_mutex_t mtx_print;
 }                   t_setup;
 
-long    ft_atol(char *str);
 int     ft_isspace(int c);
 int     ft_isdigit(int c);
-int     ft_valid_character(char *str);
-t_setup ft_philosophers(int argc, char **argv);
-t_setup *ft_valid_input_number(char **argv, t_setup *t_ph);
-t_setup *ft_valid_input_character(char **argv, t_setup *t_ph);
-t_setup *ft_check_input(int argc, char **argv, t_setup *t_ph);
-void    ft_valid_input_amount(int argc, t_setup *t_ph);
-void    ft_init_struct(char **argv, t_setup *t_ph);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
+long    ft_atol(char *str);
 long	get_time(void);
-
+void    ft_setup_destroy(t_setup *t_ph);
+void    ft_error(t_setup *t_ph);
+void    ft_to_eat(t_thinker *philo);
+void    ft_to_sleep(t_thinker *philo);
+void    ft_to_think(t_thinker *philo);
+t_setup ft_philosophers(int argc, char **argv);
+t_setup *ft_check_input(int argc, char **argv, t_setup *t_ph);
+t_setup *ft_setup_init(char **argv, t_setup *t_ph);
 #endif
