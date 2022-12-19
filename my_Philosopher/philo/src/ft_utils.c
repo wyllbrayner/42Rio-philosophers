@@ -54,10 +54,26 @@ long	ft_atol(char *str)
 	return (signal * nbr);
 }
 
-long	get_time(void)
+/*
+long	ft_get_time(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+*/
+
+long ft_get_time(void)
+{
+	struct timeval	time;
+//	long			sec;
+
+	if (gettimeofday(&time, NULL) == -1)
+	{
+//		ft_exit("Error while reading the time");
+		return (-1);
+	}
+//	sec = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }

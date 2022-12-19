@@ -29,6 +29,7 @@
 
 typedef struct      thinker
 {
+    long            nbr_philo;
     long            philo_n;
     suseconds_t     t_to_die;
     suseconds_t     t_to_eat;
@@ -62,7 +63,8 @@ typedef struct      philo
 int     ft_isspace(int c);
 int     ft_isdigit(int c);
 long    ft_atol(char *str);
-long	get_time(void);
+long    ft_get_time(void);
+//long	ft_get_time(void);
 void    ft_setup_destroy(t_setup *t_ph);
 void    ft_error(t_setup *t_ph);
 void    ft_to_eat(t_thinker *philo);

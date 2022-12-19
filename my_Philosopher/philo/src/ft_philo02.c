@@ -19,13 +19,13 @@ void    ft_error(t_setup *t_ph)
 {
 	if (t_ph->ret == -1)
 		printf("Error: Invalid number of arguments.\n");
-	else if (t_ph->ret <= -3)
+	else if ((t_ph->ret == -2) || (t_ph->ret == -3))
         printf("Error: Invalid arguments.\n");
-	else if (t_ph->ret <= -6)
+	else if ((t_ph->ret == -4) || (t_ph->ret == -5) || (t_ph->ret == -6))
         printf("Error: Unable to initialize setup.\n");
-	else if (t_ph->ret <= -7)
+	else if (t_ph->ret == -7)
         printf("Error: It was not possible to create all philosophers.\n");
-	else if (t_ph->ret <= -8)
+	else if (t_ph->ret == -8)
         printf("Error: It was not possible to group all philosophers.\n");
 }
 
@@ -35,7 +35,7 @@ t_setup *ft_setup_init(char **argv, t_setup *t_ph)
     t_ph->t_to_die = ft_atol(argv[2]);
     t_ph->t_to_eat = ft_atol(argv[3]);
     t_ph->t_to_sleep = ft_atol(argv[4]);
-    t_ph->t_start = get_time();
+    t_ph->t_start = ft_get_time();
     if (argv[5])
         t_ph->must_eat = ft_atol(argv[5]);
     else
@@ -49,6 +49,8 @@ t_setup *ft_setup_init(char **argv, t_setup *t_ph)
     }
     memset(t_ph->philo, 0, (sizeof(t_thinker) * t_ph->nbr_philo));
 	ft_setup_init_aux(t_ph);
+//    printf("Dentro da setup_init\n");
+//    printf("nbr_philo: %ld | t_to_die: %d | t_to_eat: %d | t_to_sleep: %d | t_start: %d | must_eat: %ld\n", t_ph->nbr_philo, t_ph->t_to_die, t_ph->t_to_eat, t_ph->t_to_sleep, t_ph->t_start, t_ph->must_eat);
     return (t_ph);
 }
 
