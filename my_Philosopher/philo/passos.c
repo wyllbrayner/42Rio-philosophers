@@ -79,13 +79,12 @@ Passos
         => retornar uma mensagem de erro; e
         => encerrar o programa.
     -> se passar pela validação, seguir com o programa.
-2 - (XX) Iniciar as variáveis necessárias em uma estrutura;
-    -> se a inicialização falhar (ainda estou inicializando apenas com as entradas dos usuários\
-    ainda não há error a ser validado):
+2 - (OK) Iniciar as variáveis necessárias em uma estrutura;
+    -> se a inicialização falhar:
         => retornar mensagem de error; e
         => encerrar o programa.
     -> se passar pela inicialização, seguir com o programa. 
-3 - (XX) Inicializar a quantidade de philosophers (threades) de acordo com o input recebido.
+3 - (OK) Inicializar a quantidade de philosophers (threades) de acordo com o input recebido.
     -> se a inicialização de algum dos philosophos falhar:
         => encerrar as threads já inicializadas;
         => liberar a memória (caso tenha sido alocada);
@@ -100,15 +99,19 @@ Passos
         => liberar a memória já alocada (se aplicado); e
         => encerrar o programa.
     -> enquanto a condição de parada não for alcançada, seguir com o programa.
-5 - (XX) Cada philosopho deve executar uma mesma rotina.
+5 - (OK) Cada philosopho deve executar uma mesma rotina.
     -> Esta rotina deve ficar em loop infinito até que a condição de parada seja alcançada.
     --> a rotina deve chamar as seguintes atividades:
         ---> comer;
         ----> Essa atividade deve chamar uma função comer que fará as seguintes atividades:
         -----> capturar o mutex para o garfo direito;
+        -----> capturar o mutex para impressão;
         -----> imprimir "timestamp_in_ms X has taken a fork";
+        -----> devolver o mutex para impressão;
         -----> capturar o mutex para o garfo esquerdo;
+        -----> capturar o mutex para impressão;
         -----> imprimir "timestamp_in_ms X has taken a fork";
+        -----> devolver o mutex para impressão;
         -----> capturar o mutex para impressão;
         -----> calcular o timestamp_in_ms para impressão final.
         -----> imprimir "timestamp_in_ms X is eating";

@@ -95,7 +95,7 @@ void    ft_setup_destroy(t_setup *t_ph)
         free(t_ph->philo);
         t_ph->philo = NULL;
     }
-    else if (t_ph->ret == 0)
+    else if ((t_ph->ret == 0) || (t_ph->ret == -7) || (t_ph->ret == -8))
     {
         ft_setup_destroy_aux(t_ph);
         free(t_ph->thread);
@@ -118,4 +118,3 @@ static void ft_setup_destroy_aux(t_setup *t_ph)
         i++;
     }
 }
-

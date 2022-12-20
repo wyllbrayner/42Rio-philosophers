@@ -72,7 +72,7 @@ static int	ft_valid_character(char *str)
 			return (-2);
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
 static t_setup	*ft_valid_input_number(char **argv, t_setup *t_ph)
@@ -84,7 +84,7 @@ static t_setup	*ft_valid_input_number(char **argv, t_setup *t_ph)
 	while (argv[i])
 	{
 		nbr = ft_atol(argv[i]);
-		if ((i == 1 && nbr <= 0) || (i <= 5 && nbr < 0))
+		if ((i == 1 && nbr <= 0) || (i <= 5 && nbr < 0) || (nbr > INT_MAX))
 		{
 			t_ph->ret = -3;
 			return (t_ph);
