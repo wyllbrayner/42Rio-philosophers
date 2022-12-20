@@ -10,15 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// cc ft_testes.c -Wall -Werror -Wextra -pthread -o test && ./test
-
 /*
 -> Entendimento do programa
 --> Um ou mais philosofos sentam ao redor de uma mesa circular.
---> Os philosophos, comem, pensam ou dormem alternadamente.
----> Enquanto eles comem, não pensam nem dormem.
----> Enquanto eles pensam, não comem nem dormem.
----> Enquanto eles dormem, não pensam nem comem.
+--> Os philosophos, comem, dormem ou pensam alternadamente.
+---> Enquanto comem, não pensam nem dormem.
+---> Enquanto dormem, não pensam nem comem.
+---> Enquanto pensam, não comem nem dormem.
 --> Existem tantos garfos quanto philosophos na mesa.
 ---> exemplo: cada philosopho possui seu proprio garfo a direita.
 --> Para comer, cada philosopho precisa pegar o seu próprio garfo e o garfo a sua esquerda.
@@ -26,7 +24,7 @@
 --> Quando acordado, ele começa a pensar novamente.
 ---> Comer => Dormir => Pensar
 --> A simulação encerra quando o philosofo morre de fome.
---> Cada philosopho precisa comer em nunca morrer de fome.
+--> Cada philosopho precisa comer para nunca morrer de fome.
 --> Um philosofo nunca fala com outro.
 --> Um philosofo não sabe e um philosopho está prestes a morrer.
 

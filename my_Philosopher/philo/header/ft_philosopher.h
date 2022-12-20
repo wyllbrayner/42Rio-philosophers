@@ -34,6 +34,7 @@ typedef struct      thinker
     long            must_eat;
     long            just_eat;
     long            t_last_eat;
+    long            t_start;
     int             is_live;
     pthread_mutex_t mtx_r_fork;
     pthread_mutex_t mtx_l_fork;

@@ -21,30 +21,21 @@ t_setup *ft_philo_init(t_setup *t_ph, int i)
     t_ph->philo[i].t_to_sleep = t_ph->t_to_sleep;
     t_ph->philo[i].must_eat = t_ph->must_eat;
     t_ph->philo[i].just_eat = 0;
-    t_ph->philo[i].t_last_eat = t_ph->t_start;
+    t_ph->philo[i].t_last_eat = 0;
+    t_ph->philo[i].t_start = t_ph->t_start;
     t_ph->philo[i].is_live = 1;
-    t_ph->philo[i].actual_action = 0;
-
-//    printf("Inicio do philo: %ld | t_to_die: %ld | t_to_eat: %ld | t_to_sleep: %ld | must_eat: %ld | just_eat: %ld | t_last_eat: %ld | is_live: %d | actual_action: %d ", t_ph->philo[i].philo_n, t_ph->philo[i].t_to_die, t_ph->philo[i].t_to_eat, t_ph->philo[i].t_to_sleep, t_ph->philo[i].must_eat, t_ph->philo[i].just_eat, t_ph->philo[i].t_last_eat, t_ph->philo[i].is_live, t_ph->philo[i].actual_action);
     if (i == (t_ph->nbr_philo - 1))
-    {
         t_ph->philo[i].mtx_r_fork = t_ph->fork[0];
-//        printf("| r_fork : 0");
-    }
     else
-    {
         t_ph->philo[i].mtx_r_fork = t_ph->fork[i + 1];
-//        printf("| r_fork : %d", (i + 1));
-    }
     t_ph->philo[i].mtx_l_fork = t_ph->fork[i];
     t_ph->philo[i].mtx_print = t_ph->mtx_print;
-//    printf(" | l_fork : %d\n", i);
     return (t_ph);
 }
 
 t_setup *ft_run_philosophers(t_setup *t_ph)
 {
-    int         i;
+    int i;
 
     i = 0;
     while (i < t_ph->nbr_philo)
