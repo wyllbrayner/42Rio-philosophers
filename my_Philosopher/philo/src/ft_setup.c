@@ -49,8 +49,6 @@ t_setup *ft_setup_init(char **argv, t_setup *t_ph)
     }
     memset(t_ph->philo, 0, (sizeof(t_thinker) * t_ph->nbr_philo));
 	ft_setup_init_aux(t_ph);
-//    printf("Dentro da setup_init\n");
-//    printf("nbr_philo: %ld | t_to_die: %d | t_to_eat: %d | t_to_sleep: %d | t_start: %d | must_eat: %ld\n", t_ph->nbr_philo, t_ph->t_to_die, t_ph->t_to_eat, t_ph->t_to_sleep, t_ph->t_start, t_ph->must_eat);
     return (t_ph);
 }
 

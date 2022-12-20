@@ -23,7 +23,7 @@ t_setup *ft_philo_init(t_setup *t_ph, int i)
     t_ph->philo[i].just_eat = 0;
     t_ph->philo[i].t_last_eat = 0;
     t_ph->philo[i].t_start = t_ph->t_start;
-    t_ph->philo[i].is_live = 1;
+    t_ph->philo[i].is_live = TRUE;
     if (i == (t_ph->nbr_philo - 1))
         t_ph->philo[i].mtx_r_fork = t_ph->fork[0];
     else
