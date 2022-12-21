@@ -21,7 +21,6 @@
 # include <sys/time.h>// gettimeofday
 
 # define INT_MAX 2147483647
-# define THOUSAND 1000
 # define FALSE	0
 # define TRUE	1
 
