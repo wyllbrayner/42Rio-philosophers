@@ -21,6 +21,7 @@
 # include <sys/time.h>// gettimeofday
 
 # define INT_MAX 2147483647
+# define THOUSAND 1000
 # define FALSE	0
 # define TRUE	1
 
@@ -36,6 +37,7 @@ typedef struct      thinker
     long            t_last_eat;
     long            t_start;
     int             is_live;
+    int             is_running;
     pthread_mutex_t mtx_r_fork;
     pthread_mutex_t mtx_l_fork;
     pthread_mutex_t mtx_print;

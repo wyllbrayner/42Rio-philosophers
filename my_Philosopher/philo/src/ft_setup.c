@@ -40,7 +40,7 @@ t_setup *ft_setup_init(char **argv, t_setup *t_ph)
         t_ph->must_eat = ft_atol(argv[5]);
     else
         t_ph->must_eat = 0;
-    t_ph->is_running = 1;
+    t_ph->is_running = TRUE;
     t_ph->philo = (t_thinker *)malloc(sizeof(t_thinker) * t_ph->nbr_philo);
     if (!t_ph->philo)
     {
