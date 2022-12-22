@@ -24,9 +24,9 @@ void    ft_error(t_setup *t_ph)
 	else if ((t_ph->ret == -4) || (t_ph->ret == -5) || (t_ph->ret == -6))
         printf("Error: Unable to initialize setup.\n");
 	else if (t_ph->ret == -7)
-        printf("Error: It was not possible to create all philosophers.\n");
+        printf("Error: It was not possible to create all threads.\n");
 	else if (t_ph->ret == -8)
-        printf("Error: It was not possible to group all philosophers.\n");
+        printf("Error: It was not possible to group all threads.\n");
 }
 
 t_setup *ft_setup_init(char **argv, t_setup *t_ph)
