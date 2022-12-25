@@ -27,8 +27,6 @@ t_setup	*ft_check_input(int argc, char **argv, t_setup *t_ph)
 	if (t_ph->ret < 0)
 		return (t_ph);
 	ft_valid_input_number(argv, t_ph);
-	if (t_ph->ret < 0)
-		return (t_ph);
 	return (t_ph);
 }
 

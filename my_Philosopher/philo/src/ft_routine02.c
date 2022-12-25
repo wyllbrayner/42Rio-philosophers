@@ -19,7 +19,7 @@ long	ft_get_time(void)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (((time.tv_sec * 1000000) + time.tv_usec) / 1000);
+	return (((time.tv_sec * 1000000) + time.tv_usec) / THOUSAND);
 }
 
 int	ft_is_alive(t_thinker *philo)
@@ -66,19 +66,4 @@ static long	ft_get_range(long time)
 		return (500000);
 	else
 		return (time);
-}
-
-void	ft_eat_one(t_thinker *philo)
-{
-	if (ft_is_alive(philo) && philo->is_running)
-	{
-		pthread_mutex_lock(&philo->mtx_r_fork);
-		pthread_mutex_lock(&philo->mtx_print);
-		printf("%ld %ld has taken a fork\n", (ft_get_time() - philo->t_start), \
-			philo->philo_n);
-		pthread_mutex_unlock(&philo->mtx_print);
-		while (ft_is_alive(philo))
-			ft_smartsleep(philo, philo->t_to_sleep);
-		pthread_mutex_unlock(&philo->mtx_r_fork);
-	}
 }

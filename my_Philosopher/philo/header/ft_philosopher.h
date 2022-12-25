@@ -27,8 +27,8 @@
 
 typedef struct thinker
 {
-	int				is_live;
 	int				is_running;
+	int				is_live;
 	long			philo_n;
 	long			nbr_philo;
 	long			t_to_die;
@@ -38,8 +38,8 @@ typedef struct thinker
 	long			just_eat;
 	long			t_last_eat;
 	long			t_start;
-	pthread_mutex_t	mtx_r_fork;
-	pthread_mutex_t	mtx_l_fork;
+	pthread_mutex_t	*mtx_r_fork;
+	pthread_mutex_t	*mtx_l_fork;
 	pthread_mutex_t	mtx_print;
 }			t_thinker;
 
@@ -51,8 +51,8 @@ typedef struct philo
 	long			t_to_die;
 	long			t_to_eat;
 	long			t_to_sleep;
-	long			t_start;
 	long			must_eat;
+	long			t_start;
 	t_thinker		*philo;
 	pthread_t		*thread;
 	pthread_mutex_t	*fork;
@@ -69,9 +69,7 @@ void	*ft_monitor(void *arg);
 void	*ft_routine(void *arg);
 void	ft_setup_destroy(t_setup *t_ph);
 void	ft_error(t_setup *t_ph);
-void	ft_eat_one(t_thinker *philo);
 void	ft_smartsleep(t_thinker *philo, long time);
-t_setup	ft_philosophers(int argc, char **argv);
 t_setup	*ft_check_input(int argc, char **argv, t_setup *t_ph);
 t_setup	*ft_setup_init(char **argv, t_setup *t_ph);
 

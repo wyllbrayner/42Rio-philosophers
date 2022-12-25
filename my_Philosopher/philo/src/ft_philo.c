@@ -12,11 +12,18 @@
 
 #include "../header/ft_philosopher.h"
 
+static t_setup	ft_philosophers(int argc, char **argv);
 static t_setup	*ft_run_philosophers(t_setup *t_ph);
 static t_setup	*ft_run_philosophers_aux(t_setup *t_ph, pthread_t *th_monit);
 static t_setup	*ft_philo_init(t_setup *t_ph, int i);
 
-t_setup	ft_philosophers(int argc, char **argv)
+int	main(int argc, char **argv)
+{
+	ft_philosophers(argc, argv);
+	return (0);
+}
+
+static t_setup	ft_philosophers(int argc, char **argv)
 {
 	t_setup	t_ph;
 
@@ -54,6 +61,7 @@ static t_setup	*ft_run_philosophers(t_setup *t_ph)
 	while (i < t_ph->nbr_philo)
 	{
 		ft_philo_init(t_ph, i);
+		printf("filósofo: %ld (%p) | right: %p | left: %p\n", t_ph->philo[i].philo_n, &t_ph->philo[i], t_ph->philo[i].mtx_r_fork, t_ph->philo[i].mtx_l_fork);
 		if (pthread_create(&t_ph->thread[i], \
 			NULL, &ft_routine, &t_ph->philo[i]) != 0)
 		{
@@ -93,6 +101,8 @@ static t_setup	*ft_run_philosophers_aux(t_setup *t_ph, pthread_t *th_monit)
 
 static t_setup	*ft_philo_init(t_setup *t_ph, int i)
 {
+	t_ph->philo[i].is_running = TRUE;
+	t_ph->philo[i].is_live = TRUE;
 	t_ph->philo[i].philo_n = i + 1;
 	t_ph->philo[i].nbr_philo = t_ph->nbr_philo;
 	t_ph->philo[i].t_to_die = t_ph->t_to_die;
@@ -102,13 +112,11 @@ static t_setup	*ft_philo_init(t_setup *t_ph, int i)
 	t_ph->philo[i].just_eat = 0;
 	t_ph->philo[i].t_last_eat = t_ph->t_start;
 	t_ph->philo[i].t_start = t_ph->t_start;
-	t_ph->philo[i].is_live = TRUE;
-	t_ph->philo[i].is_running = TRUE;
 	if (i == (t_ph->nbr_philo - 1))
-		t_ph->philo[i].mtx_r_fork = t_ph->fork[0];
+		(t_ph->philo[i]).mtx_r_fork = &t_ph->fork[0];
 	else
-		t_ph->philo[i].mtx_r_fork = t_ph->fork[i + 1];
-	t_ph->philo[i].mtx_l_fork = t_ph->fork[i];
+		(t_ph->philo[i]).mtx_r_fork = &t_ph->fork[i + 1];
+	(t_ph->philo[i]).mtx_l_fork = &t_ph->fork[i];
 	t_ph->philo[i].mtx_print = t_ph->mtx_print;
 	return (t_ph);
 }

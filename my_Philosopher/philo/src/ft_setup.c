@@ -13,7 +13,7 @@
 #include "../header/ft_philosopher.h"
 
 static t_setup	*ft_setup_init_aux(t_setup *t_ph);
-static void		ft_setup_destroy_aux(t_setup *t_ph);
+static void	ft_free(void *arg);
 
 void	ft_error(t_setup *t_ph)
 {
@@ -31,16 +31,16 @@ void	ft_error(t_setup *t_ph)
 
 t_setup	*ft_setup_init(char **argv, t_setup *t_ph)
 {
+	t_ph->is_running = TRUE;
 	t_ph->nbr_philo = ft_atol(argv[1]);
 	t_ph->t_to_die = ft_atol(argv[2]);
 	t_ph->t_to_eat = ft_atol(argv[3]);
 	t_ph->t_to_sleep = ft_atol(argv[4]);
-	t_ph->t_start = ft_get_time();
 	if (argv[5])
 		t_ph->must_eat = ft_atol(argv[5]);
 	else
 		t_ph->must_eat = 0;
-	t_ph->is_running = TRUE;
+	t_ph->t_start = ft_get_time();
 	t_ph->philo = (t_thinker *)malloc(sizeof(t_thinker) * t_ph->nbr_philo);
 	if (!t_ph->philo)
 	{
@@ -82,38 +82,31 @@ static t_setup	*ft_setup_init_aux(t_setup *t_ph)
 
 void	ft_setup_destroy(t_setup *t_ph)
 {
+	int	i;
+
 	if (t_ph->ret == -5)
-	{
-		free(t_ph->philo);
-		t_ph->philo = NULL;
-	}
+		ft_free(t_ph->philo);
 	else if (t_ph->ret == -6)
 	{
-		free(t_ph->fork);
-		t_ph->fork = NULL;
-		free(t_ph->philo);
-		t_ph->philo = NULL;
+		ft_free(t_ph->fork);
+		ft_free(t_ph->philo);
 	}
 	else if ((t_ph->ret == 0) || (t_ph->ret == -7) || (t_ph->ret == -8))
 	{
-		ft_setup_destroy_aux(t_ph);
-		free(t_ph->thread);
-		t_ph->thread = NULL;
-		free(t_ph->fork);
-		t_ph->fork = NULL;
-		free(t_ph->philo);
-		t_ph->philo = NULL;
+		i = 0;
+		while (i < t_ph->nbr_philo)
+		{
+			pthread_mutex_destroy(&t_ph->fork[i]);
+			i++;
+		}
+		ft_free(t_ph->thread);
+		ft_free(t_ph->fork);
+		ft_free(t_ph->philo);
 	}
 }
 
-static void	ft_setup_destroy_aux(t_setup *t_ph)
+static void ft_free(void *arg)
 {
-	int	i;
-
-	i = 0;
-	while (i < t_ph->nbr_philo)
-	{
-		pthread_mutex_destroy(&t_ph->fork[i]);
-		i++;
-	}
+	free(arg);
+	arg = NULL;
 }
