@@ -70,13 +70,6 @@ static t_setup	*ft_setup_init_aux(t_setup *t_ph)
 		pthread_mutex_init(&t_ph->fork[i], NULL);
 		i++;
 	}
-	t_ph->thread = (pthread_t *)malloc(sizeof(pthread_t) * t_ph->nbr_philo);
-	if (!t_ph->thread)
-	{
-		t_ph->ret = -6;
-		return (t_ph);
-	}
-	memset(t_ph->thread, 0, sizeof(pthread_t) * t_ph->nbr_philo);
 	return (t_ph);
 }
 
@@ -86,11 +79,6 @@ void	ft_setup_destroy(t_setup *t_ph)
 
 	if (t_ph->ret == -5)
 		ft_free(t_ph->philo);
-	else if (t_ph->ret == -6)
-	{
-		ft_free(t_ph->fork);
-		ft_free(t_ph->philo);
-	}
 	else if ((t_ph->ret == 0) || (t_ph->ret == -7) || (t_ph->ret == -8))
 	{
 		i = 0;
@@ -99,7 +87,6 @@ void	ft_setup_destroy(t_setup *t_ph)
 			pthread_mutex_destroy(&t_ph->fork[i]);
 			i++;
 		}
-		ft_free(t_ph->thread);
 		ft_free(t_ph->fork);
 		ft_free(t_ph->philo);
 	}

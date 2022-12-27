@@ -17,6 +17,7 @@ static void		ft_stop_philosophers(t_setup *monit);
 
 void	*ft_monitor(void *arg)
 {
+	printf("Entrou na ft_monitor\n");
 	t_setup	*monit;
 
 	monit = (t_setup *)arg;
@@ -27,15 +28,18 @@ void	*ft_monitor(void *arg)
 
 static t_setup	*ft_monitor_aux(t_setup *monit)
 {
+//	printf("Entrou na ft_monitor_aux\n");
 	long	full;
 	long	i;
 
 	full = -1;
 	while (monit->is_running)
 	{
+//		printf("Entrou no 1º loop da ft_monitor_aux\n");
 		i = -1;
 		while (++i < monit->nbr_philo)
 		{
+//			printf("Entrou no 2º loop da ft_monitor_aux\n");
 			if (monit->philo[i].is_live == FALSE)
 			{
 				ft_stop_philosophers(monit);
@@ -56,10 +60,11 @@ static t_setup	*ft_monitor_aux(t_setup *monit)
 
 static void	ft_stop_philosophers(t_setup *monit)
 {
+//	printf("Entrou na ft_stop_philosophers\n");
 	long	i;
 
 	i = 0;
-	usleep(50);
+//	usleep(50); /// por que???
 	while (i < monit->nbr_philo)
 	{
 		pthread_mutex_lock(&monit->mtx_print);

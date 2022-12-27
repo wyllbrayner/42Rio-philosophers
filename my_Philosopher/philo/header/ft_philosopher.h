@@ -38,9 +38,10 @@ typedef struct thinker
 	long			just_eat;
 	long			t_last_eat;
 	long			t_start;
+	pthread_t		thread;
 	pthread_mutex_t	*mtx_r_fork;
 	pthread_mutex_t	*mtx_l_fork;
-	pthread_mutex_t	mtx_print;
+	pthread_mutex_t	*mtx_print;
 }			t_thinker;
 
 typedef struct philo
@@ -54,7 +55,6 @@ typedef struct philo
 	long			must_eat;
 	long			t_start;
 	t_thinker		*philo;
-	pthread_t		*thread;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	mtx_print;
 }					t_setup;
@@ -70,6 +70,7 @@ void	*ft_routine(void *arg);
 void	ft_setup_destroy(t_setup *t_ph);
 void	ft_error(t_setup *t_ph);
 void	ft_smartsleep(t_thinker *philo, long time);
+void	ft_msleep(t_thinker *philo, long time); //new
 t_setup	*ft_check_input(int argc, char **argv, t_setup *t_ph);
 t_setup	*ft_setup_init(char **argv, t_setup *t_ph);
 
