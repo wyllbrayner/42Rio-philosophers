@@ -60,17 +60,3 @@ long	ft_atol(char *str)
 	}
 	return (signal * nbr);
 }
-
-void	ft_error(t_data *data)
-{
-	if (data->ret == -1)
-		printf("Error: Invalid number of arguments.\n");
-	else if ((data->ret == -2) || (data->ret == -3))
-		printf("Error: Invalid arguments.\n");
-	else if ((data->ret == -4) || (data->ret == -5))
-		printf("Error: Unable to initialize structures.\n");
-	else if (data->ret == -7)
-		printf("Error: It was not possible to create all threads.\n");
-	else if (data->ret == -8)
-		printf("Error: It was not possible to group all threads.\n");
-}

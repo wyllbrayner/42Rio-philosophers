@@ -23,10 +23,9 @@ static int	all_philos_ate(t_philo *philos);
 void	*philosopher_monitor(void *ptr);
 void	print_action(t_philo *philo, int action);
 
-
-void	ft_start_philosophers(long n, t_philo *philos)
+int	start_philosophers(int n, t_philo *philos) // ok
 {
-	long			i;
+	int			i;
 	pthread_t	monitor_thread;
 
 	i = -1;
@@ -38,6 +37,7 @@ void	ft_start_philosophers(long n, t_philo *philos)
 	while (++i < n)
 		pthread_join(philos[i].thread, NULL);
 	pthread_join(monitor_thread, NULL);
+	return (0);
 }
 
 void	*actions(void *ptr) // ok
@@ -131,7 +131,7 @@ void	*philosopher_monitor(void *ptr) //ok
 	while (!all_philos_ate(philos))
 	{
 		i = -1;
-		while (++i < philos->data->nbr_philos)
+		while (++i < philos->data->number_of_philos)
 		{
 			current_time = timenow(philos->data->firststamp);
 			if ((current_time - get_lastsupper(&philos[i])) > time_to_die)
@@ -153,12 +153,12 @@ static int	all_philos_ate(t_philo *philos) // ok
 
 	had_dinner = 0;
 	i = -1;
-	while (++i < philos->data->nbr_philos)
+	while (++i < philos->data->number_of_philos)
 	{
 		if (get_meals(&philos[i]) == philos[i].data->times_must_eat)
 			had_dinner++;
 	}
-	if (had_dinner == philos->data->nbr_philos)
+	if (had_dinner == philos->data->number_of_philos)
 		return (1);
 	return (0);
 }

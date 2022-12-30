@@ -38,15 +38,15 @@ typedef struct s_data
 {
 	int				ret;
 	int				alone;
-	int					dinner_is_over;
-	long				nbr_philos;
-	long				time_to_die;
-	long				time_to_eat;
-	long				time_to_sleep;
-	long				times_must_eat;
-	long			firststamp;
-	pthread_mutex_t	lock_print;
-	pthread_mutex_t	lock_dinner;
+	long				number_of_philos;//s
+	long				dinner_is_over;//s
+	long				time_to_die;   //s
+	long				time_to_eat;   //s
+	long				time_to_sleep; //s
+	long				times_must_eat;//s
+	long			firststamp;    //s
+	pthread_mutex_t	*lock_print;
+	pthread_mutex_t	*lock_dinner;
 }	t_data;
 
 typedef struct s_philo
@@ -57,8 +57,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
-	pthread_mutex_t	lock_supper;
-	pthread_mutex_t	lock_meals;
+	pthread_mutex_t	*lock_supper;
+	pthread_mutex_t	*lock_meals;
 	t_data			*data;
 }	t_philo;
 
@@ -67,8 +67,6 @@ int		ft_isdigit(int c);
 long	ft_atol(char *str);
 
 t_data *ft_check_input(int argc, char **argv, t_data *data);
-void	ft_error(t_data *data);
-void	ft_start_philosophers(long n, t_philo *philos);
 
 long    timenow(long firststamp);
 long	timestamp(void);

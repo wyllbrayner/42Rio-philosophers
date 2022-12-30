@@ -12,134 +12,122 @@
 
 #include "../header/ft_philosopher.h"
 
-void	start_philosophers(int n, t_philo *philos);
+static void	ft_init_data(int argc, char **argv, t_data *dt);
+static t_data	*ft_init_structures(t_data *dt, t_mutex **forks, t_philo **philos);
+static void	ft_init_structures_aux(t_data *dt, t_mutex **forks, t_philo **philos);
+static void	ft_destroy_structures(t_data *dt, t_mutex *forks, t_philo *philos);
 
-void	init_input(int argc, char **argv, t_data *data);
-t_data	*init_structures(t_data *data, t_mutex **forks, t_philo **philos);
-void	init_structures_aux(t_data *data, t_mutex **forks, t_philo **philos);
-void	deinit_philo(t_data *data, t_mutex *forks, t_philo *philos);
-void	exit_philo(int n, t_data *data, t_mutex *forks, t_philo *philos);
-
-int main(int argc, char **argv) // ok
+int main(int argc, char **argv)
 {
-	t_data	data;
+	t_data	dt;
 	t_mutex	*forks;
 	t_philo	*philos;
 
-	ft_check_input(argc, argv, &data);
-	if (data.ret >= 0)
+	forks = NULL;
+	philos = NULL;
+	ft_check_input(argc, argv, &dt);
+	if (dt.ret < 0)
+		ft_error(&dt);
+	else
 	{
-		init_input(argc, argv, &data);
-		init_structures(&data, &forks, &philos);
-		if (data.ret < 0)
-		{
-			printf("init_structures!\n");		
-			exit_philo (data.number_of_philos, &data, forks, philos);
-		}
-		start_philosophers(data.number_of_philos, philos);
-		deinit_philo(&data, forks, philos);
+		ft_init_data(argc, argv, &dt);
+		ft_init_structures(&dt, &forks, &philos);
+		if (dt.ret < 0)
+			ft_error(&dt);
+		else
+			ft_start_philosophers(dt.nbr_philos, philos);
+		ft_destroy_structures(&dt, forks, philos);
 	}
 	return (0);
 }
 
-void	init_input(int argc, char **argv, t_data *data) //ok
+static void	ft_init_data(int argc, char **argv, t_data *dt)
 {
-	data->number_of_philos = ft_atol(argv[1]);
-	data->time_to_die = ft_atol(argv[2]);
-	data->time_to_eat = ft_atol(argv[3]);
-	data->time_to_sleep = ft_atol(argv[4]);
-	data->times_must_eat = -1;
+	dt->nbr_philos = ft_atol(argv[1]);
+	dt->time_to_die = ft_atol(argv[2]);
+	dt->time_to_eat = ft_atol(argv[3]);
+	dt->time_to_sleep = ft_atol(argv[4]);
+	dt->times_must_eat = -1;
 	if (argc == 6)
-		data->times_must_eat = ft_atol(argv[5]);
-	if (data->number_of_philos == 1)
-		data->alone = 1;
+		dt->times_must_eat = ft_atol(argv[5]);
+	if (dt->nbr_philos == 1)
+		dt->alone = TRUE;
 	else
-		data->alone = 0;
-	data->dinner_is_over = 0;
-	data->firststamp = 0;
-	pthread_mutex_init(&data->lock_print, NULL);
-	pthread_mutex_init(&data->lock_dinner, NULL);
+		dt->alone = FALSE;
+	dt->dinner_is_over = FALSE;
+	dt->firststamp = 0;
+	pthread_mutex_init(&dt->lock_print, NULL);
+	pthread_mutex_init(&dt->lock_dinner, NULL);
 }
 
-t_data	*init_structures(t_data *data, t_mutex **forks, t_philo **philos)
+static t_data	*ft_init_structures(t_data *dt, t_mutex **forks, t_philo **philos)
 {
-	int	i;
+	long	i;
 
-	*forks = (t_mutex *)malloc(sizeof(t_mutex) * data->number_of_philos);
+	*forks = (t_mutex *)malloc(sizeof(t_mutex) * dt->nbr_philos);
 	if (*forks == NULL)
 	{
-		data->ret = -4;
-		return (data);
+		dt->ret = -4;
+		return (dt);
 	}
 	i = -1;
-	while (++i < data->number_of_philos)
+	while (++i < dt->nbr_philos)
 		pthread_mutex_init(&(*forks)[i], NULL);
-	*philos = (t_philo *)malloc(sizeof(t_philo) * data->number_of_philos);
+	*philos = (t_philo *)malloc(sizeof(t_philo) * dt->nbr_philos);
 	if (*philos == NULL)
 	{
-		data->ret = -5;
-		return (data);
+		dt->ret = -5;
+		return (dt);
 	}
-	init_structures_aux(data, forks, philos);
-	return (data);
+	ft_init_structures_aux(dt, forks, philos);
+	return (dt);
 }
 
-void	init_structures_aux(t_data *data, t_mutex **forks, t_philo **philos)
+static void	ft_init_structures_aux(t_data *dt, t_mutex **forks, t_philo **philos)
 {
-	int	i;
+	long	i;
 
 	i = -1;
-	while (++i < data->number_of_philos)
+	while (++i < dt->nbr_philos)
 	{
 		(*philos)[i].fork_right = &(*forks)[i];
-		if (i == (data->number_of_philos - 1))
+		if (i == (dt->nbr_philos - 1))
 			(*philos)[i].fork_left = &(*forks)[0];
 		else
 			(*philos)[i].fork_left = &(*forks)[i + 1];
 		(*philos)[i].name = i + 1;
 		(*philos)[i].meals = 0;
 		(*philos)[i].lastsupper = 0;
-		(*philos)[i].data = data;
+		(*philos)[i].data = dt;
 		pthread_mutex_init(&(*philos)[i].lock_supper, NULL);
 		pthread_mutex_init(&(*philos)[i].lock_meals, NULL);
 	}
 }
 
-void	deinit_philo(t_data *data, t_mutex *forks, t_philo *philos)
+static void	ft_destroy_structures(t_data *dt, t_mutex *forks, t_philo *philos)
 {
-	int	i;
+	long	i;
 
 	i = -1;
-	while (++i < data->number_of_philos && forks)
+	while ((++i < dt->nbr_philos) && forks)
 		pthread_mutex_destroy(&forks[i]);
-	i = -1;
-	while (++i < data->number_of_philos && philos)
+	i = 0;
+	while ((i < dt->nbr_philos) && philos)
 	{
 		pthread_mutex_destroy(&philos[i].lock_supper);
 		pthread_mutex_destroy(&philos[i].lock_meals);
+		i++;
 	}
-	pthread_mutex_destroy(&data->lock_print);
-	pthread_mutex_destroy(&data->lock_dinner);
-	free(forks);
-	free(philos);
-}
-
-void	exit_philo(int n, t_data *data, t_mutex *forks, t_philo *philos) //ok
-{
-	int	i;
-
-	i = -1;
-	while (++i < n && forks)
-		pthread_mutex_destroy(&forks[i]);
-	i = -1;
-	while (++i < n && philos)
+	pthread_mutex_destroy(&dt->lock_print);
+	pthread_mutex_destroy(&dt->lock_dinner);
+	if (forks)
 	{
-		pthread_mutex_destroy(&philos[i].lock_supper);
-		pthread_mutex_destroy(&philos[i].lock_meals);
+		free(forks);
+		forks = NULL;
 	}
-	pthread_mutex_destroy(&data->lock_print);
-	pthread_mutex_destroy(&data->lock_dinner);
-	free(forks);
-	free(philos);
-	exit(EXIT_FAILURE); //confirmar que pode usar esta funcao
+	if (philos)
+	{
+		free(philos);
+		philos = NULL;
+	}
 }
