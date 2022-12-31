@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_server.c                                        :+:      :+:    :+:   */
+/*   ft_01-check_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: woliveir                                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 16:03:59 by woliveir          #+#    #+#             */
-/*   Updated: 2022/08/17 12:52:55 by woliveir         ###   ########.fr       */
+/*   Created: 2022/12/30 16:03:59 by woliveir          #+#    #+#             */
+/*   Updated: 2022/12/30 12:52:55 by woliveir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/ft_philosopher.h"
 
-static void	ft_valid_input_amount(int argc, t_data *data);
-static t_data	*ft_valid_input_character(char **argv, t_data *data);
-static int	ft_valid_character(char *str);
-static t_data	*ft_valid_input_number(char **argv, t_data *data);
+static void		ft_valid_input_amount(int argc, t_data *dt);
+static t_data	*ft_valid_input_character(char **argv, t_data *dt);
+static int		ft_valid_character(char *str);
+static t_data	*ft_valid_input_number(char **argv, t_data *dt);
 
-t_data *ft_check_input(int argc, char **argv, t_data *data)
+t_data	*ft_check_input(int argc, char **argv, t_data *dt)
 {
-	data->ret = 0;
-	ft_valid_input_amount(argc, data);
-	if (data->ret < 0)
-		return (data);
-	ft_valid_input_character(argv, data);
-	if (data->ret < 0)
-		return (data);
-	ft_valid_input_number(argv, data);
-	return (data);
+	dt->ret = 0;
+	ft_valid_input_amount(argc, dt);
+	if (dt->ret < 0)
+		return (dt);
+	ft_valid_input_character(argv, dt);
+	if (dt->ret < 0)
+		return (dt);
+	ft_valid_input_number(argv, dt);
+	return (dt);
 }
 
-static void	ft_valid_input_amount(int argc, t_data *data)
+static void	ft_valid_input_amount(int argc, t_data *dt)
 {
 	if (argc < 5 || argc > 6)
-		data->ret = -1;
+		dt->ret = -1;
 }
 
-static t_data	*ft_valid_input_character(char **argv, t_data *data)
+static t_data	*ft_valid_input_character(char **argv, t_data *dt)
 {
 	int	i;
 
@@ -45,12 +45,12 @@ static t_data	*ft_valid_input_character(char **argv, t_data *data)
 	{
 		if (ft_valid_character(argv[i]) < 0)
 		{
-			data->ret = -2;
-			return (data);
+			dt->ret = -2;
+			return (dt);
 		}
 		i++;
 	}
-	return (data);
+	return (dt);
 }
 
 static int	ft_valid_character(char *str)
@@ -73,7 +73,7 @@ static int	ft_valid_character(char *str)
 	return (TRUE);
 }
 
-static t_data	*ft_valid_input_number(char **argv, t_data *data)
+static t_data	*ft_valid_input_number(char **argv, t_data *dt)
 {
 	int		i;
 	long	nbr;
@@ -84,10 +84,10 @@ static t_data	*ft_valid_input_number(char **argv, t_data *data)
 		nbr = ft_atol(argv[i]);
 		if ((i == 1 && nbr <= 0) || (i <= 5 && nbr < 0) || (nbr > INT_MAX))
 		{
-			data->ret = -3;
-			return (data);
+			dt->ret = -3;
+			return (dt);
 		}
 		i++;
 	}
-	return (data);
+	return (dt);
 }
