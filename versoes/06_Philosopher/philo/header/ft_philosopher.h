@@ -67,7 +67,6 @@ long	ft_atol(char *str);
 void	ft_error(t_data *data);
 long	ft_timenow(long firststamp);
 long	ft_timestamp(void);
-//void	ft_msleep(long time_in_ms);
 void	ft_msleep(t_philo *phi, int action);
 long	ft_get_meals(t_philo *phi);
 long	ft_get_last_meal(t_philo *phi);

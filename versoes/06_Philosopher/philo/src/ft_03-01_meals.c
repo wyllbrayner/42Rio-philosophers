@@ -67,24 +67,3 @@ void	ft_print_action(t_philo *phi, int action)
 		printf("%ld %ld died\n", current_time, phi->id);
 	pthread_mutex_unlock(&phi->data->lock_print);
 }
-
-/*
-void	ft_print_action(t_philo *phi, int action)
-{
-	long	current_time;
-
-	pthread_mutex_lock(&phi->data->lock_print);
-	current_time = ft_timenow(phi->data->firststamp);
-	if (action == TOOK_A_FORK && !ft_dinner_is_over(phi))
-		printf("%ld %ld has taken a fork\n", current_time, phi->id);
-	else if (action == EATING && !ft_dinner_is_over(phi))
-		printf("%ld %ld is eating\n", current_time, phi->id);
-	else if (action == SLEEPING && !ft_dinner_is_over(phi))
-		printf("%ld %ld is sleeping\n", current_time, phi->id);
-	else if (action == THINKING && !ft_dinner_is_over(phi))
-		printf("%ld %ld is thinking\n", current_time, phi->id);
-	else if (action == DIED)
-		printf("%ld %ld died\n", current_time, phi->id);
-	pthread_mutex_unlock(&phi->data->lock_print);
-}
-*/

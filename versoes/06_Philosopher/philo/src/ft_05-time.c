@@ -24,16 +24,6 @@ long	ft_timenow(long firststamp)
 {
 	return (ft_timestamp() - firststamp);
 }
-/*
-void	ft_msleep(long time_in_ms)
-{
-	long	start_time;
-
-	start_time = ft_timestamp();
-	while ((ft_timestamp() - start_time) < time_in_ms)
-		usleep(10);
-}
-*/
 
 void	ft_msleep(t_philo *phi, int action)
 {

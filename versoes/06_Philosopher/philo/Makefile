@@ -1,4 +1,5 @@
-SRCS		= $(wildcard src/ft_*.c)
+SRCS		= src/ft_00-main.c src/ft_01-check_input.c src/ft_02-start.c src/ft_03-00_actions.c \
+				src/ft_03-01_meals.c src/ft_04-monitor.c src/ft_05-time.c src/ft_06-utils.c
 OBJS		= $(SRCS:.c=.o)
 NAME		= philo
 RM			= rm -f

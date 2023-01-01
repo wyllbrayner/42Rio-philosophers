@@ -26,7 +26,6 @@ void	*ft_actions(void *ptr)
 		return (ft_eat_one(phi));
 	if (phi->id % 2)
 		usleep(THOUSAND);
-//		ft_msleep(5); //
 	while (!ft_dinner_is_over(phi))
 	{
 		ft_to_eat(phi);
@@ -60,7 +59,6 @@ static void	ft_to_eat(t_philo *phi)
 	ft_print_action(phi, TOOK_A_FORK);
 	ft_print_action(phi, EATING);
 	ft_set_last_meal(phi);
-//	ft_msleep(phi->data->time_to_eat); //
 	ft_msleep(phi, EATING);
 	pthread_mutex_unlock(phi->fork_right);
 	pthread_mutex_unlock(phi->fork_left);
@@ -70,7 +68,6 @@ static void	ft_to_eat(t_philo *phi)
 static void	ft_to_sleep(t_philo *phi)
 {
 	ft_print_action(phi, SLEEPING);
-//	ft_msleep(phi->data->time_to_sleep); //
 	ft_msleep(phi, SLEEPING);
 }
 

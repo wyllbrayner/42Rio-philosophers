@@ -38,7 +38,6 @@ void	*ft_monitor(void *ptr)
 			}
 			i++;
 		}
-//		ft_msleep(1); //
 		usleep(THOUSAND);
 	}
 	return (NULL);
