@@ -29,7 +29,7 @@ void	*ft_actions(void *ptr)
 	while (!ft_dinner_is_over(phi))
 	{
 		ft_to_eat(phi);
-		if (ft_get_meals(phi) == (phi->data->must_eat + 1))
+		if (ft_get_meals(phi) == (phi->data->must_eat))
 			return (NULL);
 		ft_to_sleep(phi);
 		ft_to_think(phi);

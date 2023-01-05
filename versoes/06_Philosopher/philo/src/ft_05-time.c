@@ -31,6 +31,7 @@ void	ft_msleep(t_philo *phi, int action)
 	long	time;
 
 	start_time = ft_timestamp();
+	time = 0;
 	if (action == SLEEPING)
 		time = phi->data->time_to_sleep;
 	else if (action == EATING)
