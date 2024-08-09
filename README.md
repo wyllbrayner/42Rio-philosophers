@@ -20,9 +20,6 @@ A playlist do [CodeVault](https://youtu.be/d9s_d28yJq0?si=9vY2pkPXZd-EcSUf) me a
         Threads e paralelismo.
     </li>
     <li>
-        Gerenciamento das regras de compilação através do Makefile.
-    </li>
-    <li>
         DeadLocks e Starvation.
     </li>
 </ul>
